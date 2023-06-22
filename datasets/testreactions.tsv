@@ -1,0 +1,4 @@
+ID	compound1	compound2	product
+a1	BrC1=CC=CC=C1	CNC(C)C	CC(C)N(C)C1=CC=CC=C1
+a2	IC1=CC=CC=C1	CNC(C)C	CC(C)N(C)C1=CC=CC=C1
+a3	ClC1=CC=CC=C1	CNC(C)C	ClCC1=C(B)C(P)=CC(Br)=C1O

@@ -1,0 +1,11 @@
+#  IDE
+**/.idea/
+**/.vscode/
+**/__pycache__
+**/.ipynb_checkpoints
+
+# other
+/datasets/*_TD.*
+/datasets/*.pkl
+/datasets/*.gz
+
