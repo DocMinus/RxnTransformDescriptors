@@ -6,9 +6,10 @@ Update: 2023-06-22
 
 Copyright (c) 2022-2023 DocMinus
 Changelog: 
+V1 -> V2: multiprocessing with help by @eryl (github)
 Finalization w. further optimization and removal of V1 code. Black-ened
 Also added csv reader to pd (copy from chemtools)
-Added transfrom_descriptors() as wrapper for all descriptor functions 
+Added transfrom_descriptors() as wrapper for all descriptor functions, reducing number of lines in main.py
 """
 
 import multiprocessing

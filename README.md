@@ -1,8 +1,9 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-![GitHub](https://img.shields.io/github/license/docminus/RxnTransformDescriptors)
+![GitHub](https://img.shields.io/github/license/DocMinus/RxnTransformDescriptors)
 
 # Reaction Transform descriptors
-Python code to calculate reaction transform descriptors as described in CHEMRXIV **update when available**
+Python code to calculate reaction transform descriptors as described in CHEMRXIV **update when available**, by [@DocMinus](https://github.com/docminus) and [@DrAlatriste](https://github.com/DrAlatriste). <br>
+Not a full fledged package, some scripting know-how necessary to use or incorporate in own code might be necessary.
 
 ## Installation
 See _environment_ folder.
@@ -33,5 +34,8 @@ Provided scripts include examples on how to concatenate the structures versus th
 For quick testing and timing use `Python test.py`.<br>
 Not a pytest package, but it nevertheless does the trick for quick demonstrating/testing.<br>
 <br>
+
+### Acknowledgments
+We would like to thank [@eryl](https://github.com/eryl) for suggestions and help regarding multiprocessing. This allowed processing of large datasets within minutes or even seconds on a standard system, versus previously hours.
 
 
