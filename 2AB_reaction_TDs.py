@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 """
-V2.1.3 (Mar. 08, 08:00:00 2023)
-Update: 2023-06-22 (cleanup for ChemRxiv submission)
+V2.1.4 (Mar. 08, 08:00:00 2023)
+Update: 2023-06-24 (cleanup for ChemRxiv submission)
 
 @author: Alexander Minidis (DocMinus)
 Purpose: TDs from csv
@@ -49,11 +49,12 @@ def main():
     # Read
     print("\nReading molecules from: ", smiles_input)
     in_rct_df = read_rct2pd(smiles_input)
+    print(in_rct_df.head())
 
     # Clean
-    cmpd1_smi = clean_smiles_multi(in_rct_df["compound1"].to_list())
-    cmpd2_smi = clean_smiles_multi(in_rct_df["compound2"].to_list())
-    prod_smi = clean_smiles_multi(in_rct_df["product"].to_list())
+    cmpd1_smi = clean_smiles_multi(in_rct_df.iloc[:, 1].to_list())
+    cmpd2_smi = clean_smiles_multi(in_rct_df.iloc[:, 2].to_list())
+    prod_smi = clean_smiles_multi(in_rct_df.iloc[:, 3].to_list())
 
     # Calculate TDs
     transforms_descriptors = transform_descriptors(cmpd1_smi, cmpd2_smi, prod_smi)

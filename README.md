@@ -19,7 +19,7 @@ _ID reactant1 reactant2 product_<br>
 <br>
 The script will provide a simple cleaning of the structures; "extreme" broken structures might not get fixed with the provided method.<br>
 <br>
-Two small test-sets are provided with made up reactions, one of them containing a "faulty" structure to demonstrate correct filtration in the end result.
+Two small test-sets are provided with made up reactions, one of them containing a "faulty" structure to demonstrate correct filtration in the end result. Alternatively, run the _test.py_ script (see below)<br>
 
 ## Syntax
 If you only want to use the TD function, your script requires the following minimum lines with the smiles as string tuples (even if only a single reaction):
