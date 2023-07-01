@@ -2,7 +2,7 @@
 ![GitHub](https://img.shields.io/github/license/DocMinus/RxnTransformDescriptors)
 
 # Reaction Transform descriptors
-Python code to calculate reaction transform descriptors as described in CHEMRXIV **update when available**, by [@DocMinus](https://github.com/docminus) and [@DrAlatriste](https://github.com/DrAlatriste). <br>
+Python code to calculate reaction transform descriptors as described in [CHEMRXIV](https://chemrxiv.org/engage/chemrxiv/article-details/649888d41dcbb92a5e8e3475), by [@DocMinus](https://github.com/docminus) and [@DrAlatriste](https://github.com/DrAlatriste). <br>
 Not a full fledged package, some scripting know-how necessary to use or incorporate in own code might be necessary.
 
 ## Installation
