@@ -3,6 +3,7 @@
 """
 V2.1.4 (Mar. 08, 08:00:00 2023)
 Update: 2023-06-24 (cleanup for ChemRxiv submission)
+Update: 2024-02-22 (minor cleanup and file renaming)
 
 @author: Alexander Minidis (DocMinus)
 Purpose: TDs from csv
@@ -59,20 +60,20 @@ def main():
     # Calculate TDs
     transforms_descriptors = transform_descriptors(cmpd1_smi, cmpd2_smi, prod_smi)
 
-    # for output create table with structures and combine with calculated TDs
+    # combination of the three structure list to a df
     _df = pd.DataFrame(
         {"Compound 1": cmpd1_smi, "Compound 2": cmpd2_smi, "Product": prod_smi}
     )
-    # In addition: filter when empty structures
+    # filter when empty structures
     _df = _df[~((_df.iloc[:, :3] == "").any(axis=1))]
-    # The three tables are concatenated to one
+    # Final table combines the structure list and the TDs
     final_table = pd.concat(
         [in_rct_df["ID"], _df, transforms_descriptors], axis=1, join="inner"
     )
-    # output (optional)
-    print(final_table.tail())
     #############################################################################
-    # Write pickle & csv file
+    # Output, multiple options
+    print(final_table.tail())
+    # Write binary and tsv
     print("\nWriting to file: ", final_output_pkl)
     final_table.to_pickle(final_output_pkl)
     print("\nWriting to file: ", final_output_tsv)
