@@ -3,36 +3,42 @@
 
 # Reaction Transform descriptors
 Python code to calculate reaction transform descriptors as described in [CHEMRXIV](https://chemrxiv.org/engage/chemrxiv/article-details/649888d41dcbb92a5e8e3475), by [@DocMinus](https://github.com/docminus) and [@DrAlatriste](https://github.com/DrAlatriste). <br>
-Not a full fledged package, some scripting know-how necessary to use or incorporate in own code might be necessary.
 
 ## Installation
 See _environment_ folder.
+Updated the installation with a setup file to enable the tools to be part of ones Python environment. Testing has also been added. 
 
-## Usage
-Run the provided script by providing a file with tab/semicolon separated data (also comma or space, though not recommended):<br>
-`python 2AB_reaction_TDs.py path/inputfilename`<br>
+## Example Usage
+Run the example script by providing a file with tab/semicolon separated data (also comma or space, though not recommended):
+```shell
+python AB2C_reaction_TDs_example.py inputfilename
+```
 <br>
-You can get help by calling the script using -h: `python 2AB_reaction_TDs.py -h` <br>
+You can get help by calling the script using -h: `python AB2C_reaction_TDs_example.py -h` <br>
 <br>
-This particular script uses fileformat<br>
-_ID reactant1 reactant2 product_<br>
+This particular script expects the input order of the file as<br>
+
+_ID reactant1 reactant2 product_ <br>
 <br>
-The script will provide a simple cleaning of the structures; "extreme" broken structures might not get fixed with the provided method.<br>
+Simple cleaning of structures is included; "extreme" broken structures might not get fixed with the provided method.
 <br>
-Two small test-sets are provided with made up reactions, one of them containing a "faulty" structure to demonstrate correct filtration in the end result. Alternatively, run the _test.py_ script (see below)<br>
+Two small test-sets are provided with made up reactions, one of them containing a "faulty" structure to demonstrate correct filtration in the output result. <br>Execute via:  `python AB2C_reaction_TDs_examples.py ./datsets/testreactions.tsv`<br>
 
 ## Syntax
 If you only want to use the TD function, your script requires the following minimum lines with the smiles as string tuples (even if only a single reaction):
+```shell
+from td_tools.rxntools import transform_descriptors
+
+output_table = transform_descriptors(['smiles_reactant1'],['smiles_reactant2'],['product'])
 ```
-    from td_tools.rxntools import transform_descriptors
-    
-    output_table = transform_descriptors(['smiles_reactant1'],['smiles_reactant2'],['product'])
+A cleaning function as well as a file reader function is included for larger datasets:
+```shell
+from td_tools.rxntools import clean_smiles_multi, read_rct2pd  
 ```
-A cleaning function as well as a file reader function is included for larger datasets.<br>
-Provided scripts include examples on how to concatenate the structures versus the TDs.<br>
-<br>
-For quick testing and timing use `Python test.py`.<br>
-Not a pytest package, but it nevertheless does the trick for quick demonstrating/testing.<br>
+The provided script includes examples on how to concatenate the structures versus the TDs.<br>
+
+## Testing
+Python testing has been added instead of the previous test.py, see the README.md under /tests.<br>
 <br>
 
 ### Acknowledgments
