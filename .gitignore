@@ -7,6 +7,7 @@
 /datasets/*_TD.*
 /datasets/*.pkl
 /datasets/*.gz
+.pytest_cache/
 
 # Python build artifacts
 __pycache__/
