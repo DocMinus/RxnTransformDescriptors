@@ -42,6 +42,7 @@ Python testing has been added instead of the previous test.py, see the README.md
 <br>
 
 ### Acknowledgments
-We would like to thank [@eryl](https://github.com/eryl) for suggestions and help regarding multiprocessing. This allowed processing of large datasets within minutes or even seconds on a standard system, versus previously hours.
+We would like to thank [@eryl](https://github.com/eryl) for suggestions and help regarding multiprocessing. This allowed processing of large datasets within minutes or even seconds on a standard system, versus previously hours.<br>
+Currently this has been changed to joblib instead, which seems a bit more stable and faster in this particular context.
 
 
