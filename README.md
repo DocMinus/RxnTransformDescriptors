@@ -1,5 +1,6 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 ![GitHub](https://img.shields.io/github/license/DocMinus/RxnTransformDescriptors)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/DocMinus/RxnTransformDescriptors)
 
 # Reaction Transform descriptors
 Python code to calculate reaction transform descriptors as described in [CHEMRXIV](https://chemrxiv.org/engage/chemrxiv/article-details/649888d41dcbb92a5e8e3475), by [@DocMinus](https://github.com/docminus) and [@DrAlatriste](https://github.com/DrAlatriste). <br>
@@ -42,7 +43,11 @@ Python testing has been added instead of the previous test.py, see the README.md
 <br>
 
 ### Acknowledgments
-We would like to thank [@eryl](https://github.com/eryl) for suggestions and help regarding multiprocessing. This allowed processing of large datasets within minutes or even seconds on a standard system, versus previously hours.<br>
+We would like to thank [@eryl](https://github.com/eryl) for suggestions and help regarding multiprocessing in the original build. This allowed processing of large datasets within minutes or even seconds on a standard system, versus previously hours.<br>
 Currently this has been changed to joblib instead, which seems a bit more stable and faster in this particular context.
 
-
+### Updates
+* setup.py for install as package
+* testing added
+* switch from multiparallel to joblib
+* releases introduced; version number reflects version number of tool.

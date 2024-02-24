@@ -27,8 +27,11 @@ Modules required are sort of standard for chemistry scripting, rdkit, pandas & n
     pip install -r ./environment/requirements.txt
     pip install .
     ```
-
-    The latter installs the rxn_tools into the environment. The example script would work without that, but testing requires that.
+    The latter installs the rxn_tools into the environment. The example script would work without that, but testing requires that.<br>
+    If you don't want to download this repo, you can install it directly with:
+    ```shell
+    pip install git+https://github.com/DocMinus/RxnTransformDescriptors.git
+    ```
 
 ## Running Tests
 `pytest` is available for testing. See the README.md in /tests.
