@@ -1,28 +1,25 @@
 """
 Initial Version: Nov, 2022
-Version 2.1.3
-Update: 2023-06-22
+Version 2.2.0
+Update: 2024-02-24
 @author: Alexander Minidis (DocMinus)
 
-Copyright (c) 2022-2023 DocMinus
+Copyright (c) 2022-2024 DocMinus
 Changelog: 
-V1 -> V2: multiprocessing with help by @eryl (github)
+V1 -> V2: multiprocessing with help by @eryl (github) / changed to joblib for better compatibility
 Finalization w. further optimization and removal of V1 code. Black-ened
 Also added csv reader to pd (copy from chemtools)
 Added transfrom_descriptors() as wrapper for all descriptor functions, reducing number of lines in main.py
 """
 
-import multiprocessing
+import multiprocessing  # remains for reference, but not used
 from collections import defaultdict
 
-# general imports
 import pandas as pd
-
-# RDkit stuff
+from joblib import Parallel, delayed
 from rdkit import Chem, RDLogger
 from rdkit.Chem.MolStandardize import rdMolStandardize
 
-# my imports
 from .ids import (
     ELEMENTS_DICT,
     RDKIT_SMARTS,
@@ -135,8 +132,20 @@ def rd_clean(workpackage: str) -> list:
     return _id, Chem.MolToSmiles(mol)
 
 
-def clean_smiles_multi(schmiles: list) -> tuple:
+def clean_smiles_multiprocessing(schmiles: list) -> tuple:
     """parallel cleanining of a list of smiles.\n
+    Leaving this here for reference; obsolete but still functional if so desired.
+    """
+    print("...Cleaning compounds...")
+    work = [(i, smiles) for i, smiles in enumerate(schmiles)]
+    with multiprocessing.Pool() as pool:
+        processed_smiles = pool.map(rd_clean, work)
+
+    return tuple(smi[1] for smi in processed_smiles)
+
+
+def clean_smiles_multi(schmiles: list) -> tuple:
+    """parallel cleaning of a list of smiles.\n
     Includes an ID, not really necessary, but helps in later analysis downstream.
 
     in: list of smiles
@@ -144,33 +153,29 @@ def clean_smiles_multi(schmiles: list) -> tuple:
     """
     print("...Cleaning compounds...")
     work = [(i, smiles) for i, smiles in enumerate(schmiles)]
-    with multiprocessing.Pool() as pool:
-        processed_smiles = pool.map(rd_clean, work)
+    processed_smiles = Parallel(n_jobs=-1)(delayed(rd_clean)(w) for w in work)
 
-    # tuple or list, doesn't really matter(?)
     return tuple(smi[1] for smi in processed_smiles)
 
 
-def element_count(smiles: str) -> dict:
+def element_count(schmiles: str) -> dict:
     """
     Creates a "sum formula" as dictionary, no hydrogens though.\n
     Doesn't consider salts, ignores bondtypes. But: doesn't need RDKIT.
         Input:
-            string containing smiles
+            string containing schmiles
         Output:
             dictionary containing sumformula, here: sorted, including 0 atoms, useful for EA descriptors
     """
 
-    elements = [token for token in REGEX.findall(smiles)]
+    elements = [token for token in REGEX.findall(schmiles)]
     for i in range(len(elements)):
         if REGEX_LOW.findall(elements[i]):
             elements[i] = elements[i].upper()
 
     element_count = [elements.count(ele) for ele in elements]
     formula = dict(zip(elements, element_count))
-    # final_dict = {"smiles": smiles}
-    # final_dict.update(ELEMENTS_DICT)
-    # return {key: formula.get(key, final_dict[key]) for key in final_dict}
+
     return {key: formula.get(key, ELEMENTS_DICT[key]) for key in ELEMENTS_DICT}
 
 
@@ -183,10 +188,10 @@ def elemental_tds_multi(schmiles: list) -> pd.DataFrame:
     """
     print("...Calculation EA based descriptors...")
 
-    with multiprocessing.Pool() as pool:
-        processed_smiles = pool.map(element_count, schmiles)
+    processed_smiles = Parallel(n_jobs=-1)(
+        delayed(element_count)(smiles) for smiles in schmiles
+    )
 
-    # return processed_smiles
     return pd.DataFrame(data=processed_smiles).astype("int16")
 
 
@@ -212,8 +217,9 @@ def rdkit_descriptors_multi(schmiles: list) -> pd.DataFrame:
     :return: pandas df containing calculated properties (no structures, but now with ID)
     """
     print("...Calculating RDKit descriptors...")
-    with multiprocessing.Pool() as pool:
-        processed_smiles = pool.map(properties_calc, schmiles)
+    processed_smiles = Parallel(n_jobs=-1)(
+        delayed(properties_calc)(schmiles) for schmiles in schmiles
+    )
 
     named_properties = dict(zip(RDKIT_TD_HEADERS, zip(*processed_smiles)))
     return pd.DataFrame(data=named_properties).astype("int16")
@@ -248,9 +254,9 @@ def smarts_descriptors_multi(schmiles: list) -> pd.DataFrame:
     """
     print("...Calculating smarts based descriptors...")
 
-    with multiprocessing.Pool() as pool:
-        processed_smiles = pool.map(smarts_count, schmiles)
-        # processed_smiles = list(pool.imap_unordered(match_smarts, mollist, chunksize=chunksize))
+    processed_smiles = Parallel(n_jobs=-1)(
+        delayed(smarts_count)(smiles) for smiles in schmiles
+    )
 
     columns = defaultdict(list)
     for smi in schmiles:

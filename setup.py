@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="td_tools",
-    version="2.1.3",
+    version="2.2.0",
     pythonrequires=">=3.9",
     packages=find_packages(),
     package_data={
@@ -12,4 +12,5 @@ setup(
     author="DocMinus",
     author_email="alexander.minidis@gmail.com",
     url="https://github.com/DocMinus/RxnTransformDescriptors",
+    license="CC0-1.0",
 )
